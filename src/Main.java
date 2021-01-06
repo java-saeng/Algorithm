@@ -1,60 +1,76 @@
-//BOJ 5567 결혼식
+//BOJ 2178 미로 탐색
 
-/*이 문제는 상근이의 친구, 친구의 친구만을 초대하는 문제이다. 그래서 촌수 계산과 비슷하게 문제를 풀었다.
-여기서는 촌수가 1이거나 2일 때의 사람을 구한다고 생각하면 된다. 즉, 간선이 한 번만 거쳐간 곳, 간선이 두 번 거쳐간 곳만 초대하는 것이다.
-그래서 limit배열에 그 사람의 index에 간선이 지나간 횟수를 더하고, 그 index의 value가 1이거나 2일 때만 출력해준다.
+/*
+이 문제를 처음으로 보면서 해야 할 생각이
+
+1. 입력값들을 어떻게 처리하는지
+
+2. 최소 경로를 어떻게 구해야할지이다.
+
+첫 번째, 입력값들을 처리하기 위해서 나는 주어진 한 줄, 한 줄을 string으로 저장하여, char형으로 하나하나 뺀 뒤에 아스키코드를 이용하여 '0'을 빼주었다.
+
+2. 최소 경로는 count[reX][reY] = count[X][Y] + 1을 이용하여 저장하였다. 이 말은 전에 있던 경로의 수에 하나를 더함으로써, 이때까지 들린 칸의(경로의) 개수를 나타낸다.
+
  */
 
 import java.io.*;
 import java.util.*;
+
 public class Main {
-    static int n,m;
-    static boolean visit[];
-    static ArrayList<Integer> ad[];
-    static int limit[];
+    static int n, m;
+    static int ad[][];
+    static boolean visit[][];
+    static int count[][];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int count = 0;
+
         n = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine());
         m = Integer.parseInt(st.nextToken());
-        ad = new ArrayList[n+1];
-        visit = new boolean[n+1];
-        limit = new int[n+1];
-        for(int i = 0; i < ad.length; i++)
-            ad[i] = new ArrayList<>();
-        for(int i = 0; i < m; i++){
-            st = new StringTokenizer(br.readLine());
-            int s1 = Integer.parseInt(st.nextToken());
-            int s2 = Integer.parseInt(st.nextToken());
-            ad[s1].add(s2);
-            ad[s2].add(s1);
+
+        ad = new int[n][m];
+        visit = new boolean[n][m];
+        count = new int[n][m];
+
+        count[0][0] = 1;
+
+        for (int i = 0; i < n; i++) {
+            String str = new String(br.readLine());
+            for (int j = 0; j < m; j++) {
+                ad[i][j] = str.charAt(j) - '0';
+            }
         }
-        bfs(1);
-        for(int i = 0; i < limit.length; i++){
-            if(limit[i] == 1 || limit[i] == 2)
-                count++;
-        }
-        System.out.println(count);
+        bfs(0,0);
+        System.out.println(count[n-1][m-1]);
+
+
     }
 
-    //1. 상근이 번호가 1이므로 1의 index들은 모두 초대한다고 생각
-    //2, 1의 index들 중에 그들의 친구들도 모두 초대
-
-    static void bfs(int x){
+    static void bfs(int x, int y){
+        int dx[] = {-1,1,0,0};
+        int dy[] = {0,0,1,-1};
         Queue<Integer> q = new LinkedList<>();
         q.offer(x);
-        visit[x] = true;
+        q.offer(y);
+        visit[x][y] = true;
         while(!q.isEmpty()){
-            x = q.poll();
-            for(int element : ad[x]){
-                if(!visit[element]){
-                    visit[element] = true;
-                    q.offer(element);
-                    limit[element] = limit[x] + 1;
+            int X = q.poll();
+            int Y = q.poll();
+            if(X == n-1 && Y == m - 1) break;
+            for(int i = 0; i < 4; i++){
+                int reX = X + dx[i];
+                int reY = Y + dy[i];
+                if(isRangeTrue(reX,reY) && !visit[reX][reY] && ad[reX][reY] == 1){
+                    q.offer(reX);
+                    q.offer(reY);
+                    visit[reX][reY] = true;
+                    count[reX][reY] = count[X][Y] + 1;
                 }
             }
         }
+    }
+
+    static boolean isRangeTrue(int x, int y){
+        return x >= 0 && x < n && y >= 0 && y < m;
     }
 }
