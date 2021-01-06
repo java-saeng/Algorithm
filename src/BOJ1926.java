@@ -16,6 +16,7 @@ public class BOJ1926 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         int component = 0;
         int imagecount = 0;
         int minvalue = 0;
