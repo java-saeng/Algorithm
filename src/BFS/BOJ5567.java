@@ -15,6 +15,7 @@ public class BOJ5567 {
     static boolean visit[];
     static ArrayList<Integer> ad[];
     static int limit[];
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -34,11 +35,14 @@ public class BOJ5567 {
             ad[s1].add(s2);
             ad[s2].add(s1);
         }
+
         bfs(1);
+
         for(int i = 0; i < limit.length; i++){
             if(limit[i] == 1 || limit[i] == 2)
                 count++;
         }
+
         System.out.println(count);
     }
 
