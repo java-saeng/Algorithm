@@ -1,4 +1,4 @@
-//BOJ 1926 그림
+package BFS;//BOJ 1926 그림
 
 /*
 처음에 이 문제를 제출했을 때, 틀렸던 이유는 minvalue를 0으로 설정해놓지 않고, Integer.MIN_VALUE로 했기 때문이다.
