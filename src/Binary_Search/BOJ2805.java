@@ -58,16 +58,10 @@ public class BOJ2805 {
                 if(woodArray[i] >= mid)
                     woodCount += woodArray[i] - mid;
             }
-
-            if(woodCount > woodLength)
+            if(woodCount >= woodLength)
                 st = mid + 1;
-            else if(woodCount == woodLength) {
-                System.out.println(mid);
-            }
             else
                 ed = mid - 1;
-            //-> 이렇게 푼건 10을 넣으면 10과 woodArray같은곳부터 계속 num을 빼면서 더한값이 Length가 되면 반환
-            // 이렇게 풀면 시간초과가 남
         }
         System.out.println(ed);
     }
