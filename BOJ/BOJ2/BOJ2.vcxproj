@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D2B52FE3-B584-487F-A070-3F6209D77E1A}</ProjectGuid>
+    <ProjectGuid>{FFC1C9FC-7908-4524-A9D1-56420CF76260}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BOJ</RootNamespace>
+    <RootNamespace>BOJ2</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>DFS</ProjectName>
+    <ProjectName>BFS</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,9 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="소스.cpp" />
-    <ClCompile Include="소스3.cpp" />
-    <ClCompile Include="소스6.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
