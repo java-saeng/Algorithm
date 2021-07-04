@@ -16,8 +16,6 @@ public class BOJ12852 {
 
         String str = "";
 
-        dp[1] = 0;
-
         for(int i = 2; i <= N; i++) {
             dp[i] = dp[i - 1] + 1;
             before[i] = i - 1;
