@@ -10,8 +10,8 @@ public class BOJ3055 {
     static int row, col;
     static char A[][];
     static boolean visit[][];
-    static Point start, end = null;
     static Queue<Point> q = new ArrayDeque<>();
+    static Point end, start;
     static int dx[] = {-1, 1, 0, 0};
     static int dy[] = {0, 0, 1, -1};
     public static void main(String[] args) throws IOException {
@@ -20,11 +20,20 @@ public class BOJ3055 {
     }
 
     static void pro() {
+        bfs(start);
+    }
+
+    static void bfs(Point st) {
         q.offer(start);
-        visit[start.x][start.y] = true;
+        visit[st.x][st.y] = true;
 
         while (!q.isEmpty()) {
             Point p = q.poll();
+
+            if(p.x == end.x && p.y == end.y){
+                System.out.println(p.cnt);
+                return;
+            }
 
             if(A[p.x][p.y] == '*'){
                 for (int i = 0; i < 4; i++) {
@@ -33,7 +42,7 @@ public class BOJ3055 {
 
                     if(!isRangeTrue(X,Y)) continue;
                     if(visit[X][Y]) continue;
-                    if(A[X][Y] == 'X' || A[X][Y] == 'D') continue;
+                    if(A[X][Y] == 'D' || A[X][Y] == 'X') continue;
 
                     q.offer(new Point(X, Y, p.cnt));
                     visit[X][Y] = true;
@@ -41,10 +50,6 @@ public class BOJ3055 {
                 }
             }
             else{
-                if(p.x == end.x && p.y == end.y){
-                    System.out.println(p.cnt);
-                    return;
-                }
                 for (int i = 0; i < 4; i++) {
                     int X = p.x + dx[i];
                     int Y = p.y + dy[i];
@@ -57,8 +62,8 @@ public class BOJ3055 {
                     visit[X][Y] = true;
                 }
             }
-        }
 
+        }
         System.out.println("KAKTUS");
     }
 
@@ -73,12 +78,12 @@ public class BOJ3055 {
         visit = new boolean[row][col];
 
         for (int i = 0; i < row; i++) {
-            String str = br.readLine();
+            String s = br.readLine();
             for (int j = 0; j < col; j++) {
-                A[i][j] = str.charAt(j);
-                if(A[i][j] == 'S') start = new Point(i, j, 0);
-                if(A[i][j] == 'D') end = new Point(i, j, 0);
+                A[i][j] = s.charAt(j);
                 if(A[i][j] == '*') q.offer(new Point(i, j, 0));
+                if(A[i][j] == 'D') end = new Point(i, j, 0);
+                if(A[i][j] == 'S') start = new Point(i, j, 0);
             }
         }
     }
@@ -96,5 +101,10 @@ public class BOJ3055 {
             this.cnt = cnt;
         }
     }
+
+
 }
+
+
+
 
